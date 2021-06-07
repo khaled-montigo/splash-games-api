@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\promoTool;
+use App\Models\PromoTool;
 use App\Repositories\BaseRepository;
 
 /**
