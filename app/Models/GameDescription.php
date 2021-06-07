@@ -9,7 +9,7 @@ class GameDescription extends Model
 {
     use HasFactory;
     protected $table ='game_description';
-    protected $fillable = ['name', 'description', 'game_type', 'category', 'devices', 'tournaments', 'additional','engaging_social_description'];
+    protected $fillable = ['section','name', 'description', 'game_type', 'category', 'devices', 'tournaments', 'additional','engaging_social_description'];
     public $timestamps = false;
 
 
