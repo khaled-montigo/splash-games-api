@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Requests\API\PromoToolAPIRequest;
 use App\Http\Requests\API\UpdatepromoToolAPIRequest;
-use App\Models\promoTool;
+use App\Models\PromoTool;
 use App\Repositories\promoToolRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;

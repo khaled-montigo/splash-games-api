@@ -23,8 +23,8 @@ class GameResource extends JsonResource
             'section' => $this->section,
             'name' => isset($this->name) ? $this->name : '',
             'url' => $this->url,
-            'image' => $this->image,
-            'images' => $this->image_list,
+            'image' =>  url('/') .'/'. $this->image,
+            'images' =>  $this->GetGameImages(),
             'col' => $this->col,
             'description' => isset($this->description) ? $this->description : '',
             'game_type' => isset($this->game_type) ? $this->game_type : '',
@@ -33,8 +33,8 @@ class GameResource extends JsonResource
             'devices' => isset($this->devices) ? $this->devices : '',
             'tournaments' => isset($this->tournaments) ? $this->tournaments : '',
             'additional' => isset($this->game_additional) ? $this->game_additional : '',
-            'logo' => $this->logo,
-            'devices_image' => $this->devices_image,
+            'logo' => url('/') .'/'.  $this->logo,
+            'devices_image' => url('/') .'/'.  $this->devices_image,
             'Properties' => $this->RelationProperties(),
             'PromoTools' => $this->RelationPromoTools(),
             'EngagingAndSocial' => $this->RelationEngagingAndSocialData(),
@@ -58,6 +58,21 @@ class GameResource extends JsonResource
         return $ReturnedData;
     }
 
+
+    private function GetGameImages() {
+        $imagesArr = [];
+        if(!strpos($this->image_list,',')){
+            $imagesArr[0] = url('/') .'/'. $this->image_list;
+            return $imagesArr;
+        }
+
+        $imagesStArr = explode(",", $this->image_list);
+        foreach ($imagesStArr as $value) {
+            $imagesArr[] = url('/') .'/'. $value;
+        }
+        return $imagesArr;
+    }
+
     private function RelationProperties(){
         $propertiesList = [];
         if(!isset($this->Properties)){
@@ -78,12 +93,31 @@ class GameResource extends JsonResource
         if(!isset($this->PromoTools)){
             return null;
         }
-        foreach ($this->PromoTools as $promoTool){
+        foreach ($this->PromoTools as $index => $promoTool){
             $promoData = [];
             $promoData['image'] = $promoTool->image;
             $promoData['title'] = $promoTool->title;
             $promoData['description'] = $promoTool->description;
-            $promoData['col'] = $promoTool->col;
+            if(count($this->PromoTools) == 1){
+                $promoData['col'] = 12;
+            }
+            if(count($this->PromoTools) == 2){
+                $promoData['col'] = 6;
+            }
+            if(count($this->PromoTools) == 3){
+                $promoData['col'] =  5;
+                if($index == 0){
+                    $promoData['col'] = 12;
+                }
+                if($index == 1){
+                    $promoData['col'] = 7;
+                }
+
+            }
+            if(count($this->PromoTools) > 3){
+                $promoData['col'] = 6;
+            }
+
             $promoData['button'] = $promoTool->button;
             array_push($promoToolsList,$promoData);
         }

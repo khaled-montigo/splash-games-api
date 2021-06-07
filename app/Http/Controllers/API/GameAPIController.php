@@ -189,6 +189,9 @@ class GameAPIController extends AppBaseController
     {
         /** @var Game $game */
         $game = $this->gameRepository->find($id);
+        if(empty($game)){
+            $game = Game::where('url',$id)->first();
+        }
 
         if (empty($game)) {
             return $this->sendError('Game not found');

@@ -37,6 +37,6 @@ class promoToolRepository extends BaseRepository
      **/
     public function model()
     {
-        return promoTool::class;
+        return PromoTool::class;
     }
 }
