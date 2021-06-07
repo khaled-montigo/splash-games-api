@@ -21,7 +21,7 @@
   <component name="ChangeListManager">
     <list default="true" id="0489673b-c21e-4d96-b7c8-c560eea50270" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/API/GameAPIRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/API/GameAPIRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/GameDescription.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/GameDescription.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -187,7 +187,7 @@
       <workItem from="1622813975221" duration="302000" />
       <workItem from="1622873733841" duration="6273000" />
       <workItem from="1622982729870" duration="76000" />
-      <workItem from="1623056016413" duration="2934000" />
+      <workItem from="1623056016413" duration="3249000" />
     </task>
     <servers />
   </component>
