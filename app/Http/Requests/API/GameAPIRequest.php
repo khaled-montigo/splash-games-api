@@ -40,7 +40,7 @@ class GameAPIRequest extends APIRequest
                if($LocalRequired[$Local]['require']){
                    $rules['description.'.$Local.'.section'] = 'required|string|max:255';
                    $rules['description.'.$Local.'.name'] = 'required|string|max:255';
-                   $rules['description.'.$Local.'.description'] = 'nullable|string|max:255';
+                   $rules['description.'.$Local.'.description'] = 'nullable|string';
                    $rules['description.'.$Local.'.game_type'] = 'nullable|string|max:255';
                    $rules['description.'.$Local.'.category'] = 'nullable|string|max:255';
                    $rules['description.'.$Local.'.devices'] = 'required|string|max:255';
