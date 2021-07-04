@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Requests\API\GameAPIRequest;
-use App\Http\Requests\API\UpdateGameAPIRequest;
+use App\Http\Requests\API\GameUploadImageRequest;
 use App\Models\EngagingSocialTool;
 use App\Models\Game;
 use App\Models\GameHasEngagingSocialTool;
@@ -75,6 +75,7 @@ class GameAPIController extends AppBaseController
 
         foreach ($input['description'] as $key => $val){
             $gameInput[$key] =  $val;
+            $gameInput[$key]['devices'] = implode(',', $gameInput[$key]['devices']);
         }
 
         if($request->hasFile('logo')){
@@ -85,27 +86,9 @@ class GameAPIController extends AppBaseController
             $gameInput['image'] = $request->file('image')->store('game-image','public_path');
         }
 
-        if($request->hasFile('devices_image')){
-            $gameInput['devices_image'] = $request->file('devices_image')->store('game-devices-image','public_path');
-        }
 
-        $stringSliderImages = "";
-        if($request->hasFile('slider_images')){
-            $SlideImagesFile = $request->file("slider_images");
-            if(is_array($SlideImagesFile)) {
-                foreach($SlideImagesFile as $SlideImage) {
-                    if($stringSliderImages != ""){
-                        $stringSliderImages = $stringSliderImages . ",";
-                    }
-                    $stringSliderImages =   $stringSliderImages  . $SlideImage->store('game-slide-images','public_path');
-                }
-            }else{
-                $stringSliderImages =  $request->file("slider_images")->store('game-slide-images','public_path');
-            }
-        }
+        $gameInput['image_list'] = implode(',', $gameInput['slider_images']);
 
-
-        $gameInput['image_list'] = $stringSliderImages;
 
 
 
@@ -150,25 +133,19 @@ class GameAPIController extends AppBaseController
 
         if(isset($input['TournamentsArea'])){
             $TournamentsAreaInput = $input['TournamentsArea'];
-            if($request->hasFile('TournamentsArea.image')){
-                $TournamentsAreaInput["image"] = $request->file('TournamentsArea.image')->store('tournaments-spins-area','public_path');
-            }
             $TournamentsAreaData = json_decode(json_encode($TournamentsAreaInput,JSON_FORCE_OBJECT));
             TournamentsSpins::updateOrCreate(
-                ['game_id'   => $game->id],
+                ['game_id'   => $game->id, 'type' => 'tournaments' ],
                 ['game_id'   => $game->id, 'type' => 'tournaments' , 'image' => $TournamentsAreaData->image , 'image_col' => $TournamentsAreaData->image_col, 'title' => $TournamentsAreaData->en->title, 'description' => $TournamentsAreaData->en->description]
             );
         }
 
         if(isset($input['SpinsArea'])){
             $SpinsAreaInput = $input['TournamentsArea'];
-            if($request->hasFile('TournamentsArea.image')){
-                $SpinsAreaInput["image"] = $request->file('SpinsArea.image')->store('tournaments-spins-area','public_path');
-            }
             $SpinsAreaData = json_decode(json_encode($SpinsAreaInput,JSON_FORCE_OBJECT));
             TournamentsSpins::updateOrCreate(
-                ['game_id'   => $game->id],
-                ['game_id'   => $game->id, 'type' => 'tournaments' , 'image' => $SpinsAreaData->image , 'image_col' => $SpinsAreaData->image_col, 'title' => $SpinsAreaData->en->title, 'description' => $SpinsAreaData->en->description]
+                ['game_id'   => $game->id , 'type' => 'spins'],
+                ['game_id'   => $game->id, 'type' => 'spins' , 'image' => $SpinsAreaData->image , 'image_col' => $SpinsAreaData->image_col, 'title' => $SpinsAreaData->en->title, 'description' => $SpinsAreaData->en->description]
             );
         }
 
@@ -229,7 +206,10 @@ class GameAPIController extends AppBaseController
 
         foreach ($input['description'] as $key => $val){
             $gameInput[$key] =  $val;
+            $gameInput[$key]['devices'] = implode(',', $gameInput[$key]['devices']);
         }
+
+        $gameInput['image_list'] = implode(',', $gameInput['slider_images']);
 
 
         $game = $this->gameRepository->update($gameInput, $id);
@@ -271,6 +251,28 @@ class GameAPIController extends AppBaseController
             }
         }
 
+        if(isset($input['TournamentsArea'])){
+            $TournamentsAreaInput = $input['TournamentsArea'];
+            $TournamentsAreaData = json_decode(json_encode($TournamentsAreaInput,JSON_FORCE_OBJECT));
+            TournamentsSpins::updateOrCreate(
+                ['game_id'   => $game->id, 'type' => 'tournaments' ],
+                ['game_id'   => $game->id, 'type' => 'tournaments' , 'image' => $TournamentsAreaData->image , 'image_col' => $TournamentsAreaData->image_col, 'title' => $TournamentsAreaData->en->title, 'description' => $TournamentsAreaData->en->description]
+            );
+        }else{
+            TournamentsSpins::where('game_id','=',$game->id)->where('type','=','tournaments')->delete();
+        }
+
+        if(isset($input['SpinsArea'])){
+            $SpinsAreaInput = $input['TournamentsArea'];
+            $SpinsAreaData = json_decode(json_encode($SpinsAreaInput,JSON_FORCE_OBJECT));
+            TournamentsSpins::updateOrCreate(
+                ['game_id'   => $game->id , 'type' => 'spins'],
+                ['game_id'   => $game->id, 'type' => 'spins' , 'image' => $SpinsAreaData->image , 'image_col' => $SpinsAreaData->image_col, 'title' => $SpinsAreaData->en->title, 'description' => $SpinsAreaData->en->description]
+            );
+        }else{
+            TournamentsSpins::where('game_id','=',$game->id)->where('type','=','spins')->delete();
+        }
+
 
 
 
@@ -300,4 +302,36 @@ class GameAPIController extends AppBaseController
 
         return $this->sendSuccess('Game deleted successfully');
     }
+
+
+
+
+    public function imageUpload(GameUploadImageRequest $request)
+    {
+        $ImageUploadName = [];
+        if($request->hasFile('image')){
+            $ImageUploadName['image'] = $request->file('image')->store($request->type,'public_path');
+        }
+
+        return $this->sendResponse($ImageUploadName, 'image updated successfully');
+    }
+
+
+
+    //        $stringSliderImages = "";
+//        if($request->hasFile('slider_images')){
+//            $SlideImagesFile = $request->file("slider_images");
+//            if(is_array($SlideImagesFile)) {
+//                foreach($SlideImagesFile as $SlideImage) {
+//                    if($stringSliderImages != ""){
+//                        $stringSliderImages = $stringSliderImages . ",";
+//                    }
+//                    $stringSliderImages =   $stringSliderImages  . $SlideImage->store('game-slide-images','public_path');
+//                }
+//            }else{
+//                $stringSliderImages =  $request->file("slider_images")->store('game-slide-images','public_path');
+//            }
+//        }
+
+
 }

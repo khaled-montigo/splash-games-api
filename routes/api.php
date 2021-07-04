@@ -18,7 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
+Route::post('games/image-upload',  [App\Http\Controllers\API\GameAPIController::class, 'imageUpload']);
 Route::resource('games', App\Http\Controllers\API\GameAPIController::class);
 
 Route::resource('game-properties', App\Http\Controllers\API\GamePropertyAPIController::class);

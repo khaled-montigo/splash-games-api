@@ -27,10 +27,13 @@ class GameAPIRequest extends APIRequest
     {
         $rules = [
             'url' => 'required|string|max:255|'.Rule::unique('games', 'url')->ignore($this->game),
-            'image' =>  'required|file|mimes:jpeg,jpg,png,gif,svg,ico,webp',
-            'logo' => 'required|file|mimes:jpeg,jpg,png,gif,svg,ico,webp',
-            'devices_image' => 'nullable|file|mimes:jpeg,jpg,png,gif,svg,ico,webp',
+            'devices_image' => 'nullable|string|max:255',
+//            'devices_image' => 'nullable|file|mimes:jpeg,jpg,png,gif,svg,ico,webp',
         ];
+        if($this->game === null){
+            $rules['image'] = 'required|file|mimes:jpeg,jpg,png,gif,svg,ico,webp';
+            $rules['logo'] = 'required|file|mimes:jpeg,jpg,png,gif,svg,ico,webp';
+        }
 
 
         $Locals = config('translatable.locales');
@@ -43,7 +46,7 @@ class GameAPIRequest extends APIRequest
                    $rules['description.'.$Local.'.description'] = 'nullable|string';
                    $rules['description.'.$Local.'.game_type'] = 'nullable|string|max:255';
                    $rules['description.'.$Local.'.category'] = 'nullable|string|max:255';
-                   $rules['description.'.$Local.'.devices'] = 'required|string|max:255';
+                   $rules['description.'.$Local.'.devices'] = 'required|array|max:255';
                    $rules['description.'.$Local.'.tournaments'] = 'nullable|string|max:255';
                    $rules['description.'.$Local.'.additional'] = 'nullable|string|max:255';
                    $rules['description.'.$Local.'.engaging_social_description'] = 'nullable|string|max:255';
@@ -54,26 +57,26 @@ class GameAPIRequest extends APIRequest
 
         $input = $this->all();
         if(isset($input['TournamentsArea'])){
-            $rules['TournamentsArea.'.'image'] = 'required|file|mimes:jpeg,jpg,png,gif,svg,ico,webp';
+            $rules['TournamentsArea.'.'image'] = 'required|string|max:255';
             $rules['TournamentsArea.'.'image_col'] =  'required|integer|max:12';
             foreach ($Locals as $Local){
                 if(isset($LocalRequired[$Local])){
                     if($LocalRequired[$Local]['require']){
                         $rules['TournamentsArea.'.$Local.'.title'] = 'required|string|max:255';
-                        $rules['TournamentsArea.'.$Local.'.description'] = 'required|string|max:255';
+                        $rules['TournamentsArea.'.$Local.'.description'] = 'required|string';
                     }
                 }
             }
         }
 
         if(isset($input['SpinsArea'])){
-            $rules['SpinsArea.'.'.image'] = 'required|file|mimes:jpeg,jpg,png,gif,svg,ico,webp';
-            $rules['SpinsArea.'.'.image_col'] =  'required|integer|max:12';
+            $rules['SpinsArea.'.'image'] = 'required|string|max:255';
+            $rules['SpinsArea.'.'image_col'] =  'required|integer|max:12';
             foreach ($Locals as $Local){
                 if(isset($LocalRequired[$Local])){
                     if($LocalRequired[$Local]['require']){
                         $rules['SpinsArea.'.$Local.'.title'] = 'required|string|max:255';
-                        $rules['SpinsArea.'.$Local.'.description'] = 'required|string|max:255';
+                        $rules['SpinsArea.'.$Local.'.description'] = 'required|string';
                     }
                 }
             }

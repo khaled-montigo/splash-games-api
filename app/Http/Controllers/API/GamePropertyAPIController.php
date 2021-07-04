@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Requests\API\GamePropertyAPIRequest;
-use App\Http\Requests\API\UpdateGamePropertyAPIRequest;
 use App\Models\GameProperty;
 use App\Repositories\GamePropertyRepository;
 use Illuminate\Http\Request;

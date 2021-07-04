@@ -40,6 +40,7 @@ class GameResource extends JsonResource
             'EngagingAndSocial' => $this->RelationEngagingAndSocialData(),
             'TournamentsArea' => $this->RelationTournamentsArea(),
             'SpinsArea' => $this->RelationSpinsArea(),
+            'base_url' => url('/').'/',
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
@@ -80,7 +81,7 @@ class GameResource extends JsonResource
         }
         foreach ($this->Properties as $property){
             $propertyData = [];
-            $propertyData['icon'] = $property->icon;
+            $propertyData['icon'] = url('/') .'/'. $property->icon;
             $propertyData['title'] = $property->title;
             $propertyData['description'] = $property->description;
             array_push($propertiesList,$propertyData);
@@ -93,9 +94,10 @@ class GameResource extends JsonResource
         if(!isset($this->PromoTools)){
             return null;
         }
+
         foreach ($this->PromoTools as $index => $promoTool){
             $promoData = [];
-            $promoData['image'] = $promoTool->image;
+            $promoData['image'] = url('/') .'/'. $promoTool->icon;
             $promoData['title'] = $promoTool->title;
             $promoData['description'] = $promoTool->description;
             if(count($this->PromoTools) == 1){
@@ -139,10 +141,13 @@ class GameResource extends JsonResource
         if(isset($this->EngagingAndSocial)){
             foreach ($this->EngagingAndSocial as $EngagingAndSocial){
                 $EngagingAndSocialData = [];
-                $EngagingAndSocialData['icon'] = $EngagingAndSocial->icon;
+                $EngagingAndSocialData['icon'] = url('/') .'/'. $EngagingAndSocial->icon;
                 $EngagingAndSocialData['title'] = $EngagingAndSocial->title;
                 $EngagingAndSocialData['description'] = $EngagingAndSocial->description;
-                $EngagingAndSocialData['image'] = $EngagingAndSocial->image;
+                if($EngagingAndSocial->image){
+                    $EngagingAndSocialData['image'] = url('/') .'/'. $EngagingAndSocial->image;
+                }
+
                 array_push($engaging_social_List,$EngagingAndSocialData);
             }
         }
@@ -157,7 +162,7 @@ class GameResource extends JsonResource
         if($TournamentsAreaRelationData){
             $TournamentsAreaData['tools'] = true;
             $TournamentsAreaData['image_col'] = $TournamentsAreaRelationData->image_col;
-            $TournamentsAreaData['image'] = $TournamentsAreaRelationData->image;
+            $TournamentsAreaData['image'] = url('/').'/' . $TournamentsAreaRelationData->image;
             $TournamentsAreaData['title'] = $TournamentsAreaRelationData->title;
             $TournamentsAreaData['description'] = $TournamentsAreaRelationData->description;
         }
@@ -166,12 +171,13 @@ class GameResource extends JsonResource
 
 
     private function RelationSpinsArea(){
+
         $SpinsAreaData = null;
-        $SpinsAreaRelationData = $this->TournamentsArea;
+        $SpinsAreaRelationData = $this->SpinsArea;
         if($SpinsAreaRelationData){
             $SpinsAreaData['tools'] = true;
             $SpinsAreaData['image_col'] = $SpinsAreaRelationData->image_col;
-            $SpinsAreaData['image'] = $SpinsAreaRelationData->image;
+            $SpinsAreaData['image'] = url('/').'/' . $SpinsAreaRelationData->image;
             $SpinsAreaData['title'] = $SpinsAreaRelationData->title;
             $SpinsAreaData['description'] = $SpinsAreaRelationData->description;
         }
