@@ -28,3 +28,6 @@ Route::resource('promo-tools', App\Http\Controllers\API\PromoToolAPIController::
 
 
 Route::resource('engaging-social', App\Http\Controllers\API\EngagingSocialToolAPIController::class);
+
+
+Route::resource('vacancies', App\Http\Controllers\API\VacanciesAPIController::class);

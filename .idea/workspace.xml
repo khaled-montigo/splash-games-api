@@ -21,10 +21,6 @@
   <component name="ChangeListManager">
     <list default="true" id="0489673b-c21e-4d96-b7c8-c560eea50270" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/GameAPIController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/GameAPIController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/GamePropertyAPIController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/GamePropertyAPIController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/API/GameAPIRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/API/GameAPIRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Resources/GameResource.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/GameResource.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -203,7 +199,10 @@
       <workItem from="1624430365167" duration="21000" />
       <workItem from="1624430461468" duration="44000" />
       <workItem from="1624445416636" duration="3399000" />
-      <workItem from="1625387624260" duration="8425000" />
+      <workItem from="1625387624260" duration="8835000" />
+      <workItem from="1625557533977" duration="354000" />
+      <workItem from="1625637706838" duration="3689000" />
+      <workItem from="1625724037088" duration="2899000" />
     </task>
     <servers />
   </component>
@@ -227,15 +226,15 @@
       <screen x="0" y="25" width="1440" height="798" />
     </state>
     <state x="294" y="230" key="#com.intellij.fileTypes.FileTypeChooser/0.25.1440.798@0.25.1440.798" timestamp="1622556340397" />
-    <state x="257" y="25" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1621936392021">
-      <screen x="0" y="25" width="1440" height="800" />
-    </state>
-    <state x="257" y="25" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.25.1440.798@0.25.1440.798" timestamp="1621867762277" />
-    <state x="257" y="25" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.25.1440.800@0.25.1440.800" timestamp="1621936392021" />
-    <state x="458" y="183" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1625389504820">
+    <state x="257" y="25" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1625735235550">
       <screen x="0" y="25" width="1440" height="798" />
     </state>
-    <state x="458" y="183" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.25.1440.798@0.25.1440.798" timestamp="1625389504820" />
+    <state x="257" y="25" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.25.1440.798@0.25.1440.798" timestamp="1625735235550" />
+    <state x="257" y="25" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.25.1440.800@0.25.1440.800" timestamp="1621936392021" />
+    <state x="458" y="183" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1625665692551">
+      <screen x="0" y="25" width="1440" height="798" />
+    </state>
+    <state x="458" y="183" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.25.1440.798@0.25.1440.798" timestamp="1625665692551" />
     <state x="421" y="179" width="597" height="490" key="find.popup" timestamp="1625406184972">
       <screen x="0" y="25" width="1440" height="798" />
     </state>
